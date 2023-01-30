@@ -18,12 +18,10 @@ public class PlayerMove : MonoBehaviour
 
     void FixedUpdate()
     {
-        moveAxisX = Input.GetAxis("Horizontal") * moveSpeed;
-        moveAxisZ = Input.GetAxis("Vertical") * moveSpeed;
+        moveAxisX = Input.GetAxisRaw("Horizontal") * moveSpeed;
+        moveAxisZ = Input.GetAxisRaw("Vertical") * moveSpeed;
 
         rb.velocity = new Vector3(moveAxisX, rb.velocity.y, moveAxisZ);
-
-        //Debug.Log("Horizontal: " + Input.GetAxis("Horizontal") + " | " + "Vertical: " + Input.GetAxis("Vertical"));
     }
 
     void Update()
