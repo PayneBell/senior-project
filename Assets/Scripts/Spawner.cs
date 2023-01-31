@@ -33,7 +33,9 @@ public class Spawner : MonoBehaviour
         {
             Vector3 spawnPos = GenerateSpawnPosition();
 
-            Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
+            GameObject enemyObj = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
+            enemyObj.GetComponentInChildren<MeshRenderer>().material.SetColor("_Color", Color.red);
+
             enemiesSpawned++;
 
             yield return new WaitForSeconds(spawnDelay);
