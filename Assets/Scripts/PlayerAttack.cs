@@ -9,28 +9,49 @@ public class PlayerAttack : MonoBehaviour
 
     private bool attackUsable = true;
 
+    private bool attacking = false;
+
     private GameObject attackObject;
+
+    void Start()
+    {
+        attackObject = GameObject.FindGameObjectWithTag("SwordAttack");
+    }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space) && attackUsable)
         {
+            attackUsable = false;
+            attacking = true;
             StartCoroutine(Attack());
         }
 
-        if (attackObject != null)
+        if (attacking)
         {
-            attackObject.transform.RotateAround(transform.position, Vector3.up, 20 * Time.deltaTime);
+            Swing();
         }
+
+        //attackObject.transform.RotateAround(transform.position, Vector3.up, 20 * Time.deltaTime);
+    }
+
+    void Swing()
+    {
+        attackObject.transform.Rotate(0f, attackObject.transform.rotation.y + 0.05f, 0f);
+
+        if (attackObject.transform.rotation.y >= 30f)
+            attacking = false;
     }
 
     IEnumerator Attack()
     {
-        attackUsable = false;
-        attackObject = Instantiate(attackPrefab, transform.position, Quaternion.identity);
+        /*while (attackObject.transform.rotation.y < 30f && attackObject != null)
+        {
+            attackObject.transform.Rotate(0f, attackObject.transform.rotation.y + 0.05f, 0f);
+        }*/
 
         yield return new WaitForSeconds(attackCooldown);
-        Destroy(attackObject);
         attackUsable = true;
+        attacking = false;
     }
 }
