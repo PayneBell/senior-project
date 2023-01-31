@@ -250,8 +250,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnRadius: 20
-  spawnLimit: 200
-  spawnDelay: 0.1
+  spawnLimit: 50
+  spawnDelay: 0.01
   enemyPrefab: {fileID: 229291675438277075, guid: b175858e33d311f45a0fb166a159dbe8, type: 3}
 --- !u!4 &124182538
 Transform:
@@ -392,15 +392,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a710972e6146cfb43b132a22e469d79d, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.35
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a710972e6146cfb43b132a22e469d79d, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.35
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a710972e6146cfb43b132a22e469d79d, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.35
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a710972e6146cfb43b132a22e469d79d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -408,7 +408,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a710972e6146cfb43b132a22e469d79d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.5
+      value: 2.25
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a710972e6146cfb43b132a22e469d79d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -908,7 +908,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1776273829}
-  smoothTime: 0.3
+  smoothTime: 1
 --- !u!1 &1776273828
 GameObject:
   m_ObjectHideFlags: 0
