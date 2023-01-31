@@ -32,7 +32,7 @@ public class PlayerAttack : MonoBehaviour
             swingSprite.enabled = true;
             //swingCollider.enabled = true;
 
-            attackObject.transform.eulerAngles = new Vector3(0, 330, 0);
+            attackObject.transform.eulerAngles = new Vector3(0, 315, 0);
 
             attackUsable = false;
             attacking = true;
@@ -42,14 +42,14 @@ public class PlayerAttack : MonoBehaviour
 
     IEnumerator Attack()
     {
-        for (int i = 0; i < swingDegrees; i++)
+        for (int i = 0; i < swingDegrees / 2; i++)
         {
-            attackObject.transform.Rotate(new Vector3(0f, 1f, 0f));
+            attackObject.transform.Rotate(new Vector3(0f, 2f, 0f));
 
-            yield return new WaitForSeconds(1f / 10000f);
+            yield return new WaitForSeconds(1f / 100f);
         }
 
-        attackObject.transform.eulerAngles = new Vector3(0, 330, 0);
+        attackObject.transform.eulerAngles = new Vector3(0, 315, 0);
 
         attacking = false;
         attackUsable = true;
