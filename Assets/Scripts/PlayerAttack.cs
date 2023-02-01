@@ -4,57 +4,55 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
+    public float swingSpeed;
     public int swingDegrees;
 
-    public bool attacking = false;
-
     private bool attackUsable = true;
-
     private GameObject attackObject;
-
     private SpriteRenderer swingSprite;
-
     private BoxCollider swingCollider;
+    private PlayerMove movementScript;
+
+    Rigidbody rb;
 
     void Start()
     {
         attackObject = GameObject.FindGameObjectWithTag("SwordAttack");
-
         swingSprite = GetComponentInChildren<SpriteRenderer>();
-
         swingCollider = GetComponentInChildren<BoxCollider>();
+        movementScript = GetComponent<PlayerMove>();
+
+        rb = GetComponent<Rigidbody>();
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space) && attackUsable)
         {
+            movementScript.moveSpeed /= 2;
             swingSprite.enabled = true;
-            //swingCollider.enabled = true;
 
-            attackObject.transform.eulerAngles = new Vector3(0, 315, 0);
+            attackObject.transform.Rotate(0, -swingDegrees / 2, 0);
 
             attackUsable = false;
-            attacking = true;
             StartCoroutine(Attack());
         }
     }
 
     IEnumerator Attack()
     {
-        for (int i = 0; i < swingDegrees / 2; i++)
+        for (int i = 0; i < swingDegrees / swingSpeed; i++)
         {
-            attackObject.transform.Rotate(new Vector3(0f, 2f, 0f));
+            attackObject.transform.Rotate(Vector3.up, swingSpeed);
 
-            yield return new WaitForSeconds(1f / 100f);
+            yield return new WaitForSecondsRealtime(Time.deltaTime);
         }
 
-        attackObject.transform.eulerAngles = new Vector3(0, 315, 0);
+        attackObject.transform.Rotate(0, -swingDegrees / 2, 0);
 
-        attacking = false;
         attackUsable = true;
 
+        movementScript.moveSpeed *= 2;
         swingSprite.enabled = false;
-        //swingCollider.enabled = false;
     }
 }
