@@ -5,22 +5,10 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
 
-    // Executes if swing begins outside enemy collider
+    // Detects if enemy is hit by projectile
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Enemy" && GetComponentInChildren<SpriteRenderer>().enabled)
-        {
-            Destroy(other.gameObject);
-            GameData.LiveEnemies.Remove(other.gameObject);
-            StartCoroutine(RemoveFromList());
-        }
-    }
-
-
-    // Executes if swing begins inside enemy collider
-    void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.tag == "Enemy" && GetComponentInChildren<SpriteRenderer>().enabled)
+        if (other.gameObject.tag == "Enemy")
         {
             Destroy(other.gameObject);
             GameData.LiveEnemies.Remove(other.gameObject);

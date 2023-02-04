@@ -8,6 +8,8 @@ public class PlayerAttack : MonoBehaviour
         Public variables
     */
 
+    public GameObject weaponPrefab;
+
     public float attackCooldown;
     public float swingSpeed;
     public int swingDegrees;
@@ -17,7 +19,6 @@ public class PlayerAttack : MonoBehaviour
     */
 
     private bool attackUsable = true;
-    private GameObject attackObject;
     private SpriteRenderer swingSprite;
     private BoxCollider swingCollider;
     private PlayerMove movementScript;
@@ -30,8 +31,6 @@ public class PlayerAttack : MonoBehaviour
 
     void Start()
     {
-        attackObject = GameObject.FindGameObjectWithTag("SwordAttack");
-        swingSprite = GetComponentInChildren<SpriteRenderer>();
         swingCollider = GetComponentInChildren<BoxCollider>();
         movementScript = GetComponent<PlayerMove>();
 
@@ -43,14 +42,14 @@ public class PlayerAttack : MonoBehaviour
         // Listens for user attack input
         if (Input.GetKeyDown(KeyCode.Space) && attackUsable)
         {
-            movementScript.moveSpeed /= 2;
-            swingSprite.enabled = true;
+            GameObject weaponObj = Instantiate(weaponPrefab, transform);
+            movementScript.enabled = false;
+            rb.velocity = Vector3.zero;
 
-            attackObject.transform.Rotate(0, -swingDegrees / 2, 0);
+            weaponObj.transform.Rotate(0, -swingDegrees / 2, 0);
 
             attackUsable = false;
-            StartCoroutine(Cooldown());
-            StartCoroutine(Attack());
+            StartCoroutine(Attack(weaponObj));
         }
     }
 
@@ -63,20 +62,22 @@ public class PlayerAttack : MonoBehaviour
     }
 
     // Attack coroutine
-    IEnumerator Attack()
+    IEnumerator Attack(GameObject weaponObj)
     {
         // Rotates sword swing by swingSpeed degrees with each iteration
-        for (int i = 0; i < swingDegrees / swingSpeed; i++)
+        for (int i = 0; i < swingDegrees / 2; i++)
         {
-            attackObject.transform.Rotate(Vector3.up, swingSpeed);
+            weaponObj.transform.Rotate(Vector3.up, 2f);
 
-            yield return new WaitForSecondsRealtime(Time.deltaTime);
+            yield return new WaitForSeconds(Time.fixedDeltaTime / swingSpeed);
         }
 
         // Returns sword swing to default position to prepare for next swing
-        attackObject.transform.Rotate(0, -swingDegrees / 2, 0);
+        weaponObj.transform.forward = -transform.forward;
 
-        movementScript.moveSpeed *= 2;
-        swingSprite.enabled = false;
+        StartCoroutine(Cooldown());
+
+        Destroy(weaponObj);
+        movementScript.enabled = true;
     }
 }
