@@ -8,7 +8,8 @@ public class Spawner : MonoBehaviour
         Public variables
     */
 
-    public float spawnRadius;
+    public float minSpawnRadius;
+    public float maxSpawnRadius;
     public int spawnLimit;
     public float spawnDelay;
     public GameObject enemyPrefab;
@@ -26,16 +27,24 @@ public class Spawner : MonoBehaviour
         StartCoroutine(SpawnEnemy());
     }
 
-    // Generates enemy spawn position as Vector3 by generating X and Z float positions within given spawnRadius
+    // Generates enemy spawn position within a circle around level center with minimum and maximum spawn radius
     Vector3 GenerateSpawnPosition()
     {
-        float spawnPosX = Random.Range(transform.position.x - spawnRadius, transform.position.x + spawnRadius);
-        float spawnPosZ = Random.Range(transform.position.z - spawnRadius, transform.position.z + spawnRadius);
+        Vector3 worldCenter = GameObject.FindGameObjectWithTag("Level").transform.position;
+        Vector3 convertedPos;
 
-        return new Vector3(spawnPosX, 0f, spawnPosZ);
+        // Generates a spawn position until generated position falls outside of minimum spawn radius
+        do
+        {
+            Vector2 spawnPos = Random.insideUnitCircle * maxSpawnRadius;
+            convertedPos = new Vector3(spawnPos.x, 0f, spawnPos.y);
+        } while (Vector3.Distance(worldCenter, convertedPos) < minSpawnRadius);
+
+
+        return convertedPos;
     }
 
-    // Generates spawnLimit number of enemies within a Coroutine
+    // Generates spawnLimit number of enemies
     IEnumerator SpawnEnemy()
     {
         if (enemiesSpawned < spawnLimit)

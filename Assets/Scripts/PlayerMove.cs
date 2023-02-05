@@ -44,7 +44,7 @@ public class PlayerMove : MonoBehaviour
             // Final movement vector, points in direction of player movement at any given tick
             Vector3 heading = Vector3.Normalize(rightMovement + upMovement);
 
-            transform.forward = -heading;
+            transform.forward = heading;
 
             rb.velocity = heading * moveSpeed;
         }
