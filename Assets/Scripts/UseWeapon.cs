@@ -47,7 +47,7 @@ public class UseWeapon : MonoBehaviour
         {
             if (Physics.Raycast(cameraRay, out cameraRayHit, Mathf.Infinity, layerMask))
             {
-                Vector3 targetPosition = new Vector3(cameraRayHit.point.x, transform.position.y, cameraRayHit.point.z);
+                Vector3 targetPosition = new Vector3(cameraRayHit.point.x - 1.5f, cameraRayHit.point.y, cameraRayHit.point.z - 1.5f);
 
                 transform.LookAt(targetPosition);
             }

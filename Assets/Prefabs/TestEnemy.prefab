@@ -73,7 +73,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b2f0e5fd1de57648855c95aa6e5498a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sightRadius: 8
+  sightRadius: 10
   enemySpeed: 8
 --- !u!114 &-7002312032235008884
 MonoBehaviour:
