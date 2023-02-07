@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17276844, g: 0.21589246, b: 0.2978263, a: 1}
+  m_IndirectSpecularColor: {r: 0.172768, g: 0.21589169, b: 0.29782546, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -249,9 +249,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ea29cf7aab0ac74aa919962d5efff6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minSpawnRadius: 15
-  maxSpawnRadius: 20
-  spawnLimit: 20
+  minSpawnRadius: 10
+  maxSpawnRadius: 15
+  spawnLimit: 50
   spawnDelay: 0.01
   enemyPrefab: {fileID: 229291675438277075, guid: b175858e33d311f45a0fb166a159dbe8, type: 3}
 --- !u!4 &124182538
@@ -1158,8 +1158,8 @@ MonoBehaviour:
   bulletPrefab: {fileID: 8739774718722486542, guid: 0dec5fab56882f44bb24613c29956f56, type: 3}
   daggerSwingPrefab: {fileID: 5828580171192296933, guid: 77d1106fd784eba46a20aaa152a24b63, type: 3}
   cutlassSwingPrefab: {fileID: 5828580171192296933, guid: c9b622fc8153e494dba58ab6db87b275, type: 3}
-  swingSpeed: 8
-  swingDegrees: 100
+  swingSpeed: 20
+  swingDegrees: 120
   bulletSpread: 10
 --- !u!1 &1973134054
 GameObject:

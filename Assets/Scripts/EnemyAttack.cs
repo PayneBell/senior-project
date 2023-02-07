@@ -31,6 +31,8 @@ public class EnemyAttack : MonoBehaviour
     IEnumerator WaitAfterDeath()
     {
         yield return new WaitForSeconds(1f);
+        
+        GameData.WeaponEquipped = GameData.WeaponType.DAGGER;
         SceneManager.LoadScene(0);
     }
 }

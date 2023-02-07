@@ -51,7 +51,7 @@ public class Spawner : MonoBehaviour
         {
             Vector3 spawnPos = GenerateSpawnPosition();
 
-            GameObject enemyObj = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
+            GameObject enemyObj = Instantiate(enemyPrefab, spawnPos, Quaternion.Euler(0f, Random.Range(0, 360), 0f));
             enemyObj.name = "Enemy" + enemiesSpawned;
             enemyObj.GetComponentInChildren<MeshRenderer>().material.SetColor("_Color", Color.red);
 

@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class EnemyFollow : MonoBehaviour
 {
-    public float sightRadius;
+    public float enemySight;
     public float enemySpeed;
+    public float enemyFOV;
 
     Rigidbody rb;
 
@@ -21,14 +22,16 @@ public class EnemyFollow : MonoBehaviour
     {
         if (player != null)
         {
-            if (Vector3.Distance(player.transform.position, transform.position) > sightRadius)
-            {
-                rb.velocity = Vector3.zero;
-            }
-            else
+            Vector3 playerToEnemy = player.transform.position - transform.position;
+            float playerDist = Vector3.Distance(player.transform.position, transform.position);
+            if (Vector3.Angle(transform.forward, playerToEnemy) < enemyFOV && playerDist < enemySight)
             {
                 transform.LookAt(player.transform);
                 rb.velocity = transform.forward * enemySpeed;
+            }
+            else
+            {
+                rb.velocity = Vector3.zero;
             }
         }
 

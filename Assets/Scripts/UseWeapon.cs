@@ -100,7 +100,7 @@ public class UseWeapon : MonoBehaviour
         {
             weaponObj.transform.Rotate(Vector3.up, swingSpeed);
 
-            yield return new WaitForSeconds(Time.fixedDeltaTime / swingSpeed);
+            yield return new WaitForSeconds(0.01f);
         }
 
         StartCoroutine(Cooldown(meleeCooldown));
