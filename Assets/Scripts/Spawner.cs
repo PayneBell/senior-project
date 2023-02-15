@@ -30,15 +30,15 @@ public class Spawner : MonoBehaviour
     // Generates enemy spawn position within a circle around level center with minimum and maximum spawn radius
     Vector3 GenerateSpawnPosition()
     {
-        Vector3 worldCenter = GameObject.FindGameObjectWithTag("Level").transform.position;
+        Vector3 spawnCenter = transform.position;
         Vector3 convertedPos;
 
         // Generates a spawn position until generated position falls outside of minimum spawn radius
         do
         {
-            Vector2 spawnPos = Random.insideUnitCircle * maxSpawnRadius;
+            Vector2 spawnPos = (Random.insideUnitCircle * maxSpawnRadius) + new Vector2(spawnCenter.x, spawnCenter.z);
             convertedPos = new Vector3(spawnPos.x, 0f, spawnPos.y);
-        } while (Vector3.Distance(worldCenter, convertedPos) < minSpawnRadius);
+        } while (Vector3.Distance(spawnCenter, convertedPos) < minSpawnRadius);
 
 
         return convertedPos;
@@ -51,7 +51,8 @@ public class Spawner : MonoBehaviour
         {
             Vector3 spawnPos = GenerateSpawnPosition();
 
-            GameObject enemyObj = Instantiate(enemyPrefab, spawnPos, Quaternion.Euler(0f, Random.Range(0, 360), 0f));
+            GameObject enemyObj = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
+            enemyObj.transform.LookAt(GameObject.FindGameObjectWithTag("Player").transform);
             enemyObj.name = "Enemy" + enemiesSpawned;
             enemyObj.GetComponentInChildren<MeshRenderer>().material.SetColor("_Color", Color.red);
 

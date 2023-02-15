@@ -8,6 +8,7 @@ TagManager:
   - DaggerAttack
   - MouseLookCam
   - Level
+  - MouseHighlight
   layers:
   - Default
   - TransparentFX
@@ -16,7 +17,7 @@ TagManager:
   - Water
   - UI
   - Level
-  - 
+  - Projectile
   - 
   - 
   - 

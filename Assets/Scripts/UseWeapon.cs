@@ -19,10 +19,6 @@ public class UseWeapon : MonoBehaviour
     private float meleeCooldown;
     private float rangedCooldown;
 
-
-    Ray cameraRay;
-    RaycastHit cameraRayHit;
-    BoxCollider swingCollider;
     PlayerMove movementScript;
     Rigidbody rb;
 
@@ -31,7 +27,6 @@ public class UseWeapon : MonoBehaviour
         rangedCooldown = endLag * 2f;
         meleeCooldown = endLag;
 
-        swingCollider = GetComponentInChildren<BoxCollider>();
         movementScript = GetComponent<PlayerMove>();
 
         rb = GetComponent<Rigidbody>();
@@ -39,19 +34,8 @@ public class UseWeapon : MonoBehaviour
 
     void Update()
     {
-        cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-        int layerMask = 1 << 6;
-
         if (Input.GetKeyDown(KeyCode.Mouse0) && attackAvailable)
         {
-            if (Physics.Raycast(cameraRay, out cameraRayHit, Mathf.Infinity, layerMask))
-            {
-                Vector3 targetPosition = new Vector3(cameraRayHit.point.x - 1.5f, cameraRayHit.point.y, cameraRayHit.point.z - 1.5f);
-
-                transform.LookAt(targetPosition);
-            }
-
             switch (GameData.WeaponEquipped)
             {
                 case (GameData.WeaponType.DAGGER):
@@ -71,16 +55,24 @@ public class UseWeapon : MonoBehaviour
                     break;
 
                 case (GameData.WeaponType.PISTOL):
-                    Instantiate(bulletPrefab, transform.position, transform.rotation);
+                    GameObject pistolBullet = Instantiate(bulletPrefab, transform.position + transform.forward, transform.rotation);
+                    pistolBullet.GetComponent<Bullet>().shooter = gameObject;
 
                     StartCoroutine(Cooldown(rangedCooldown));
                     break;
 
                 case (GameData.WeaponType.BLUNDERBUSS):
-                    Instantiate(bulletPrefab, transform.position, Quaternion.Euler(0f, transform.rotation.eulerAngles.y - bulletSpread, 0f));
-                    Instantiate(bulletPrefab, transform.position, Quaternion.Euler(0f, transform.rotation.eulerAngles.y - (bulletSpread/5), 0f));
-                    Instantiate(bulletPrefab, transform.position, Quaternion.Euler(0f, transform.rotation.eulerAngles.y + (bulletSpread/5), 0f));
-                    Instantiate(bulletPrefab, transform.position, Quaternion.Euler(0f, transform.rotation.eulerAngles.y + bulletSpread, 0f));
+                    GameObject pellet1 = Instantiate(bulletPrefab, transform.position + transform.forward, Quaternion.Euler(0f, transform.rotation.eulerAngles.y - bulletSpread, 0f));
+                    pellet1.GetComponent<Bullet>().shooter = gameObject;
+
+                    GameObject pellet2 = Instantiate(bulletPrefab, transform.position + transform.forward, Quaternion.Euler(0f, transform.rotation.eulerAngles.y - (bulletSpread / 5), 0f));
+                    pellet2.GetComponent<Bullet>().shooter = gameObject;
+
+                    GameObject pellet3 = Instantiate(bulletPrefab, transform.position + transform.forward, Quaternion.Euler(0f, transform.rotation.eulerAngles.y + (bulletSpread / 5), 0f));
+                    pellet3.GetComponent<Bullet>().shooter = gameObject;
+
+                    GameObject pellet4 = Instantiate(bulletPrefab, transform.position + transform.forward, Quaternion.Euler(0f, transform.rotation.eulerAngles.y + bulletSpread, 0f));
+                    pellet4.GetComponent<Bullet>().shooter = gameObject;
 
                     StartCoroutine(Cooldown(rangedCooldown));
 

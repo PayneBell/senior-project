@@ -8,7 +8,7 @@ public class Projectile : MonoBehaviour
     // Detects if enemy is hit by projectile
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Enemy")
+        if (other.gameObject.tag == "Player" || other.gameObject.tag == "Enemy")
         {
             Destroy(other.gameObject);
             GameData.LiveEnemies.Remove(other.gameObject);

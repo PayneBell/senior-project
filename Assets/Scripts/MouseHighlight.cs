@@ -6,19 +6,47 @@ public class MouseHighlight : MonoBehaviour
 {
     public Sprite highlight;
 
-    GameObject highlightObj;
+    [HideInInspector]
+    public Ray cameraRay;
+
+    [HideInInspector]
+    public RaycastHit cameraRayHit;
+
+    [HideInInspector]
+    public GameObject highlightObj;
+
+    private GameObject player;
+    private UseWeapon playerWeaponScript;
+
+    int rayLayerMask;
 
     // Start is called before the first frame update
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
+        playerWeaponScript = player.GetComponent<UseWeapon>();
+
         highlightObj = new GameObject("Mouse Position");
-        highlightObj.transform.rotation = transform.rotation;
+        highlightObj.tag = "MouseHighlight";
+        highlightObj.transform.rotation = Quaternion.Euler(90f, 0f, 0f);
         highlightObj.AddComponent<SpriteRenderer>();
         highlightObj.GetComponent<SpriteRenderer>().sprite = highlight;
+
+        rayLayerMask = 1 << 6;
     }
 
     void Update()
     {
-        highlightObj.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        if (Physics.Raycast(cameraRay, out cameraRayHit, Mathf.Infinity, rayLayerMask))
+        {
+            highlightObj.transform.position = new Vector3(cameraRayHit.point.x, cameraRayHit.point.y + 0.1f, cameraRayHit.point.z);
+            
+            if (Input.GetKeyDown(KeyCode.Mouse0) && player)
+            {
+                player.transform.LookAt(cameraRayHit.point);
+            }
+        }
     }
 }
