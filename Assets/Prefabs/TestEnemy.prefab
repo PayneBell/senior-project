@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 229291675438277072}
   - component: {fileID: 9155785998839638581}
   - component: {fileID: 8045011382416901651}
-  - component: {fileID: 67586300852301029}
-  - component: {fileID: 2867788850636528380}
-  m_Layer: 0
+  - component: {fileID: 7188506134401379559}
+  - component: {fileID: 6542393137851986762}
+  m_Layer: 2
   m_Name: TestEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -73,24 +73,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b2f0e5fd1de57648855c95aa6e5498a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemySight: 20
-  enemySpeed: 9
-  enemyFOV: 45
+  enemySight: 10
+  enemySpeed: 11
+  enemyFOV: 120
   following: 0
---- !u!65 &67586300852301029
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 229291675438277075}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.75, y: 3, z: 1.5}
-  m_Center: {x: 0, y: 1.5, z: 0}
---- !u!114 &2867788850636528380
+--- !u!114 &7188506134401379559
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -99,9 +86,30 @@ MonoBehaviour:
   m_GameObject: {fileID: 229291675438277075}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a05619e2d9467b849958e39ea6690a23, type: 3}
+  m_Script: {fileID: 11500000, guid: 260d13206312d494890284d1ef35d4e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  endLag: 0.2
+  enemyWeapon: 0
+  daggerPrefab: {fileID: 5828580171192296933, guid: 77d1106fd784eba46a20aaa152a24b63, type: 3}
+  bulletPrefab: {fileID: 0}
+  meleeCooldown: 0.5
+  swingSpeed: 20
+  swingDegrees: 120
+--- !u!136 &6542393137851986762
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 229291675438277075}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.6
+  m_Height: 3
+  m_Direction: 1
+  m_Center: {x: -0.05, y: 1.5, z: -0.03}
 --- !u!1001 &8166137851345524250
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -136,6 +144,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: b62544db5be076e468f6a71fddd08cbb, type: 3}
       propertyPath: m_Name
       value: player
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: b62544db5be076e468f6a71fddd08cbb, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b62544db5be076e468f6a71fddd08cbb, type: 3}

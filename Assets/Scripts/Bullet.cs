@@ -24,7 +24,7 @@ public class Bullet : MonoBehaviour
         GetComponent<Rigidbody>().velocity = transform.forward * bulletSpeed;
     }
 
-    void OnCollisionEnter(Collision other)
+    void OnTriggerEnter(Collider other)
     {
         if (shooter != null)
         {
@@ -37,8 +37,13 @@ public class Bullet : MonoBehaviour
 
             else if (shooter.tag == "Enemy" && other.gameObject.tag == "Player")
             {
-                GameData.WeaponEquipped = GameData.WeaponType.DAGGER;
-                SceneManager.LoadScene(0);
+                EntityHealth healthScript = other.gameObject.GetComponent<EntityHealth>();
+
+                healthScript.DamageEntity(1);
+                healthScript.SetHealthText();
+
+                if (healthScript.GetHealth() == 0)
+                    healthScript.KillEntity();
             }
 
             else if (other.gameObject.tag == "Level")
