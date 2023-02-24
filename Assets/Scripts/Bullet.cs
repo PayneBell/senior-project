@@ -8,16 +8,20 @@ public class Bullet : MonoBehaviour
     public float bulletLifetime;
     public float bulletSpeed;
 
+    public GameObject ammoBoxPrefab;
+
     [HideInInspector]
     public GameObject shooter;
 
     GameObject mouseHighlight;
+    WinGame winGameScript;
 
     void Start()
     {
         StartCoroutine(DestroyBullet());
 
         mouseHighlight = GameObject.FindGameObjectWithTag("MouseHighlight");
+        winGameScript = GameObject.FindGameObjectWithTag("GameMgr").GetComponent<WinGame>();
 
         transform.position = new Vector3(transform.position.x, transform.position.y + 1.25f, transform.position.z);
         //transform.forward = shooter.transform.forward;
@@ -32,7 +36,12 @@ public class Bullet : MonoBehaviour
             {
                 Destroy(other.gameObject);
                 GameData.LiveEnemies.Remove(other.gameObject);
+                winGameScript.enemiesRemainingText.text = "Enemies Remaining: " + GameData.LiveEnemies.Count;
                 StartCoroutine(RemoveFromList());
+
+                bool dropAmmo = Random.Range(0, 100) < GameData.ammoDropChance;
+                if (dropAmmo)
+                    Instantiate(ammoBoxPrefab, other.gameObject.transform.position, other.gameObject.transform.rotation);
             }
 
             else if (shooter.tag == "Enemy" && other.gameObject.tag == "Player")

@@ -7,9 +7,13 @@ public class Projectile : MonoBehaviour
 {
     private GameObject attacker;
 
+    WinGame winGameScript;
+
     void Start()
     {
         attacker = transform.parent.gameObject;
+
+        winGameScript = GameObject.FindGameObjectWithTag("GameMgr").GetComponent<WinGame>();
     }
 
     // Detects if enemy is hit by projectile
@@ -29,6 +33,7 @@ public class Projectile : MonoBehaviour
         {
             Destroy(other.gameObject);
             GameData.LiveEnemies.Remove(other.gameObject);
+            winGameScript.enemiesRemainingText.text = "Enemies Remaining: " + GameData.LiveEnemies.Count;
             StartCoroutine(RemoveFromList());
         }
     }

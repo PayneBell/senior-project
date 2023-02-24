@@ -73,9 +73,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b2f0e5fd1de57648855c95aa6e5498a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemySight: 10
+  enemySight: 15
   enemySpeed: 6
-  enemyFOV: 120
+  enemyFOV: 150
   following: 0
 --- !u!114 &830509694424669651
 MonoBehaviour:
@@ -103,7 +103,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7039536033338955235}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 2358c79f96b555a43b6f7f3f6803c323, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.6

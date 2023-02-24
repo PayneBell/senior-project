@@ -58,7 +58,6 @@ public class Spawner : MonoBehaviour
 
             GameData.LiveEnemies.Add(enemyObj);
             enemiesSpawned++;
-
             yield return new WaitForSeconds(spawnDelay);
             StartCoroutine(SpawnEnemy());
         }

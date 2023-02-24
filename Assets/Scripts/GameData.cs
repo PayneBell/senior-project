@@ -5,6 +5,8 @@ using UnityEngine;
 public static class GameData
 {
 
+    public static int ammoDropChance = 10;
+
     public static List<GameObject> LiveEnemies = new List<GameObject>();
 
     public static WeaponType WeaponEquipped = WeaponType.DAGGER;

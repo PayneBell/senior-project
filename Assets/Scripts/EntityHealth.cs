@@ -21,6 +21,12 @@ public class EntityHealth : MonoBehaviour
         return healthPoints;
     }
 
+    public void AddHealth(int health)
+    {
+        healthPoints += health;
+        SetHealthText();
+    }
+
     public void SetHealthText()
     {
         healthText.text = "Health: " + GetHealth();

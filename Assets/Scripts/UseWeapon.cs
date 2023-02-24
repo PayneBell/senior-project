@@ -37,7 +37,7 @@ public class UseWeapon : MonoBehaviour
         shotgunMagSize = currentShotgunAmmo;
 
         rangedCooldown = endLag * 2f;
-        meleeCooldown = endLag;
+        meleeCooldown = endLag * 2f;
 
         weaponUIScript = GetComponent<SwitchWeapon>();
         movementScript = GetComponent<PlayerMove>();

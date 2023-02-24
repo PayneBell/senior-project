@@ -30,8 +30,9 @@ public class OpenChest : MonoBehaviour
 
         if (Physics.Raycast(mouseRayScript.cameraRay, out mouseRayScript.cameraRayHit, Mathf.Infinity, 1 << 8))
         {
-            if (Input.GetKeyDown(KeyCode.Mouse0) && openable && mouseRayScript.cameraRayHit.collider.tag == "Chest")
+            if (Input.GetKeyDown(KeyCode.Mouse1) && openable && mouseRayScript.cameraRayHit.collider.tag == "Chest")
             {
+                player.GetComponent<EntityHealth>().AddHealth(5);
                 Instantiate(openChestPrefab, transform.position, transform.rotation);
                 Destroy(gameObject);
             }

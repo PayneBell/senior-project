@@ -10,6 +10,7 @@ TagManager:
   - Level
   - MouseHighlight
   - Chest
+  - GameMgr
   layers:
   - Default
   - TransparentFX
