@@ -15,18 +15,31 @@ public class UseWeapon : MonoBehaviour
     // Bullet spread (for blunderbuss) in degrees
     public int bulletSpread;
 
+    public int currentPistolAmmo;
+    private int pistolMagSize;
+    public int reservePistolAmmo;
+
+    public int currentShotgunAmmo;
+    private int shotgunMagSize;
+    public int reserveShotgunAmmo;
+
     private bool attackAvailable = true;
     private float meleeCooldown;
     private float rangedCooldown;
 
+    SwitchWeapon weaponUIScript;
     PlayerMove movementScript;
     Rigidbody rb;
 
     void Start()
     {
+        pistolMagSize = currentPistolAmmo;
+        shotgunMagSize = currentShotgunAmmo;
+
         rangedCooldown = endLag * 2f;
         meleeCooldown = endLag;
 
+        weaponUIScript = GetComponent<SwitchWeapon>();
         movementScript = GetComponent<PlayerMove>();
 
         rb = GetComponent<Rigidbody>();
@@ -55,34 +68,79 @@ public class UseWeapon : MonoBehaviour
                     break;
 
                 case (GameData.WeaponType.PISTOL):
-                    GameObject pistolBullet = Instantiate(bulletPrefab, transform.position + transform.forward, transform.rotation);
-                    pistolBullet.GetComponent<Bullet>().shooter = gameObject;
+                    if (currentPistolAmmo > 0)
+                    {
+                        GameObject pistolBullet = Instantiate(bulletPrefab, transform.position + transform.forward, transform.rotation);
+                        pistolBullet.GetComponent<Bullet>().shooter = gameObject;
 
-                    StartCoroutine(Cooldown(rangedCooldown));
+                        currentPistolAmmo--;
+                        StartCoroutine(Cooldown(rangedCooldown));
+                    }
+
                     break;
 
                 case (GameData.WeaponType.BLUNDERBUSS):
-                    GameObject pellet1 = Instantiate(bulletPrefab, transform.position + transform.forward, Quaternion.Euler(0f, transform.rotation.eulerAngles.y - bulletSpread, 0f));
-                    pellet1.GetComponent<Bullet>().shooter = gameObject;
+                    if (currentShotgunAmmo > 0)
+                    {
+                        GameObject pellet1 = Instantiate(bulletPrefab, transform.position + transform.forward, Quaternion.Euler(0f, transform.rotation.eulerAngles.y - bulletSpread, 0f));
+                        pellet1.GetComponent<Bullet>().shooter = gameObject;
 
-                    GameObject pellet2 = Instantiate(bulletPrefab, transform.position + transform.forward, Quaternion.Euler(0f, transform.rotation.eulerAngles.y - (bulletSpread / 5), 0f));
-                    pellet2.GetComponent<Bullet>().shooter = gameObject;
+                        GameObject pellet2 = Instantiate(bulletPrefab, transform.position + transform.forward, Quaternion.Euler(0f, transform.rotation.eulerAngles.y - (bulletSpread / 5), 0f));
+                        pellet2.GetComponent<Bullet>().shooter = gameObject;
 
-                    GameObject pellet3 = Instantiate(bulletPrefab, transform.position + transform.forward, Quaternion.Euler(0f, transform.rotation.eulerAngles.y + (bulletSpread / 5), 0f));
-                    pellet3.GetComponent<Bullet>().shooter = gameObject;
+                        GameObject pellet3 = Instantiate(bulletPrefab, transform.position + transform.forward, Quaternion.Euler(0f, transform.rotation.eulerAngles.y + (bulletSpread / 5), 0f));
+                        pellet3.GetComponent<Bullet>().shooter = gameObject;
 
-                    GameObject pellet4 = Instantiate(bulletPrefab, transform.position + transform.forward, Quaternion.Euler(0f, transform.rotation.eulerAngles.y + bulletSpread, 0f));
-                    pellet4.GetComponent<Bullet>().shooter = gameObject;
+                        GameObject pellet4 = Instantiate(bulletPrefab, transform.position + transform.forward, Quaternion.Euler(0f, transform.rotation.eulerAngles.y + bulletSpread, 0f));
+                        pellet4.GetComponent<Bullet>().shooter = gameObject;
 
-                    StartCoroutine(Cooldown(rangedCooldown));
+
+                        currentShotgunAmmo--;
+                        StartCoroutine(Cooldown(rangedCooldown));
+                    }
 
                     break;
 
             }
 
+            weaponUIScript.UpdateUI(GameData.WeaponEquipped);
             StartCoroutine(FreezePlayer());
         }
+        else if (Input.GetKeyDown(KeyCode.R) && ((reservePistolAmmo > 0 && currentPistolAmmo != pistolMagSize) || (reserveShotgunAmmo > 0 && currentShotgunAmmo != shotgunMagSize)))
+        {
+            ReloadWeapon(GameData.WeaponEquipped);
+        }
 
+    }
+
+    void ReloadWeapon(GameData.WeaponType currentWeapon)
+    {
+        int bulletsRemaining;
+        int bulletsToLoad;
+        switch (currentWeapon)
+        {
+            case (GameData.WeaponType.PISTOL):
+                bulletsRemaining = currentPistolAmmo;
+
+                bulletsToLoad = pistolMagSize - bulletsRemaining;
+                if (reservePistolAmmo - bulletsToLoad < 0)
+                    bulletsToLoad = reservePistolAmmo;
+
+                currentPistolAmmo += bulletsToLoad;
+                reservePistolAmmo -= bulletsToLoad;
+                break;
+            case (GameData.WeaponType.BLUNDERBUSS):
+                bulletsRemaining = currentShotgunAmmo;
+
+                bulletsToLoad = shotgunMagSize - bulletsRemaining;
+                if (reserveShotgunAmmo - bulletsToLoad < 0)
+                    bulletsToLoad = reserveShotgunAmmo;
+
+                currentShotgunAmmo += bulletsToLoad;
+                reserveShotgunAmmo -= bulletsToLoad;
+                break;
+        }
+        weaponUIScript.UpdateUI(currentWeapon);
     }
 
     IEnumerator MeleeAttack(GameObject weaponObj)

@@ -91,7 +91,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   endLag: 0.25
   enemyWeapon: 2
-  daggerPrefab: {fileID: 5828580171192296933, guid: 77d1106fd784eba46a20aaa152a24b63, type: 3}
+  daggerPrefab: {fileID: 0}
   bulletPrefab: {fileID: 8739774718722486542, guid: 0dec5fab56882f44bb24613c29956f56, type: 3}
   meleeCooldown: 1
   swingSpeed: 20
