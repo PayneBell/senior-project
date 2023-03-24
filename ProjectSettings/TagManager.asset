@@ -11,6 +11,7 @@ TagManager:
   - MouseHighlight
   - Chest
   - GameMgr
+  - Anvil
   layers:
   - Default
   - TransparentFX

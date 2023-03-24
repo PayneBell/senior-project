@@ -7,13 +7,22 @@ public class Projectile : MonoBehaviour
 {
     private GameObject attacker;
 
+    private int meleeDamage;
+
     WinGame winGameScript;
+    PointSystem pointSystem;
+    InventoryManager playerInventory;
 
     void Start()
     {
         attacker = transform.parent.gameObject;
 
         winGameScript = GameObject.FindGameObjectWithTag("GameMgr").GetComponent<WinGame>();
+        pointSystem = GameObject.FindGameObjectWithTag("GameMgr").GetComponent<PointSystem>();
+        playerInventory = GameObject.FindGameObjectWithTag("Player").GetComponent<InventoryManager>();
+
+        meleeDamage = playerInventory.GetWeaponDamage();
+
     }
 
     // Detects if enemy is hit by projectile
@@ -31,10 +40,19 @@ public class Projectile : MonoBehaviour
         }
         else if (attacker.tag == "Player" && other.gameObject.tag == "Enemy")
         {
-            Destroy(other.gameObject);
-            GameData.LiveEnemies.Remove(other.gameObject);
-            winGameScript.enemiesRemainingText.text = "Enemies Remaining: " + GameData.LiveEnemies.Count;
-            StartCoroutine(RemoveFromList());
+            other.gameObject.GetComponent<EnemyHealth>().DealDamage(meleeDamage);
+
+            if (other.gameObject.GetComponent<EnemyHealth>().GetHealth() <= 0)
+            {
+                GameData.CurrentPoints++;
+                pointSystem.UpdatePoints();
+
+                Destroy(other.gameObject);
+                GameData.LiveEnemies.Remove(other.gameObject);
+                winGameScript.enemiesRemainingText.text = "Enemies Remaining: " + GameData.LiveEnemies.Count;
+                StartCoroutine(RemoveFromList());
+            }
+
         }
     }
 

@@ -8,6 +8,8 @@ public class Bullet : MonoBehaviour
     public float bulletLifetime;
     public float bulletSpeed;
 
+    private int bulletDamage;
+
     public GameObject ammoBoxPrefab;
 
     [HideInInspector]
@@ -15,6 +17,8 @@ public class Bullet : MonoBehaviour
 
     GameObject mouseHighlight;
     WinGame winGameScript;
+    PointSystem pointSystem;
+    InventoryManager playerInventory;
 
     void Start()
     {
@@ -22,6 +26,10 @@ public class Bullet : MonoBehaviour
 
         mouseHighlight = GameObject.FindGameObjectWithTag("MouseHighlight");
         winGameScript = GameObject.FindGameObjectWithTag("GameMgr").GetComponent<WinGame>();
+        pointSystem = GameObject.FindGameObjectWithTag("GameMgr").GetComponent<PointSystem>();
+        playerInventory = GameObject.FindGameObjectWithTag("Player").GetComponent<InventoryManager>();
+
+        bulletDamage = playerInventory.GetWeaponDamage();
 
         transform.position = new Vector3(transform.position.x, transform.position.y + 1.25f, transform.position.z);
         //transform.forward = shooter.transform.forward;
@@ -34,10 +42,18 @@ public class Bullet : MonoBehaviour
         {
             if (shooter.tag == "Player" && other.gameObject.tag == "Enemy")
             {
-                Destroy(other.gameObject);
-                GameData.LiveEnemies.Remove(other.gameObject);
-                winGameScript.enemiesRemainingText.text = "Enemies Remaining: " + GameData.LiveEnemies.Count;
-                StartCoroutine(RemoveFromList());
+                other.gameObject.GetComponent<EnemyHealth>().DealDamage(bulletDamage);
+
+                if (other.gameObject.GetComponent<EnemyHealth>().GetHealth() <= 0)
+                {
+                    GameData.CurrentPoints++;
+                    pointSystem.UpdatePoints();
+
+                    Destroy(other.gameObject);
+                    GameData.LiveEnemies.Remove(other.gameObject);
+                    winGameScript.enemiesRemainingText.text = "Enemies Remaining: " + GameData.LiveEnemies.Count;
+                    StartCoroutine(RemoveFromList());
+                }
 
                 bool dropAmmo = Random.Range(0, 100) < GameData.ammoDropChance;
                 if (dropAmmo)
