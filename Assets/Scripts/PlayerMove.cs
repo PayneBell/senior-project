@@ -46,7 +46,7 @@ public class PlayerMove : MonoBehaviour
 
             transform.forward = heading;
 
-            rb.velocity = heading * moveSpeed;
+            rb.velocity = new Vector3(heading.x * moveSpeed, rb.velocity.y, heading.z * moveSpeed);
         }
         else
         {

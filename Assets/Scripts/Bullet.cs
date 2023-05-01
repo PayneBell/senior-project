@@ -32,6 +32,7 @@ public class Bullet : MonoBehaviour
         bulletDamage = playerInventory.GetWeaponDamage();
 
         transform.position = new Vector3(transform.position.x, transform.position.y + 1.25f, transform.position.z);
+
         //transform.forward = shooter.transform.forward;
         GetComponent<Rigidbody>().velocity = transform.forward * bulletSpeed;
     }

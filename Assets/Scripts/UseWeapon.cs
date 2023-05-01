@@ -72,6 +72,7 @@ public class UseWeapon : MonoBehaviour
                     {
                         GameObject pistolBullet = Instantiate(bulletPrefab, transform.position + transform.forward, transform.rotation);
                         pistolBullet.GetComponent<Bullet>().shooter = gameObject;
+                        pistolBullet.transform.forward = gameObject.transform.forward;
 
                         currentPistolAmmo--;
                         StartCoroutine(Cooldown(rangedCooldown));
