@@ -10,6 +10,11 @@ public static class GameData
 
     public static WeaponType WeaponEquipped = WeaponType.DAGGER;
 
+    public static WeaponType EquippedMelee = WeaponType.CUTLASS;
+    public static WeaponType EquippedRanged = WeaponType.BLUNDERBUSS;
+
+    public static SlotType WeaponTypeEquipped = SlotType.MELEE;
+
     public static int CurrentWeaponDamage = 0;
 
     public static int CurrentPoints = 0;
@@ -20,6 +25,12 @@ public static class GameData
         CUTLASS,
         PISTOL,
         BLUNDERBUSS
+    }
+
+    public enum SlotType
+    {
+        MELEE,
+        RANGED
     }
 
 }

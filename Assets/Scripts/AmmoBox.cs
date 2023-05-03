@@ -23,7 +23,7 @@ public class AmmoBox : MonoBehaviour
 
     void GiveAmmo(int ammoAmt)
     {
-        switch (GameData.WeaponEquipped)
+        switch (GameData.EquippedRanged)
         {
             case (GameData.WeaponType.PISTOL):
                 player.GetComponent<UseWeapon>().reservePistolAmmo += ammoAmt;
@@ -39,7 +39,7 @@ public class AmmoBox : MonoBehaviour
                 
                 break;
         }
-        weaponUIScript.UpdateUI(GameData.WeaponEquipped);
+        weaponUIScript.UpdateUI(GameData.WeaponTypeEquipped);
         Destroy(gameObject);
     }
 }

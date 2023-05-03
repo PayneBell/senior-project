@@ -14,6 +14,6 @@ public class PointSystem : MonoBehaviour
     {
         points = GameData.CurrentPoints;
 
-        pointsText.text = "Points: " + points;
+        pointsText.text = points.ToString();
     }
 }

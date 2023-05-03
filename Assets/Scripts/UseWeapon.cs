@@ -83,18 +83,25 @@ public class UseWeapon : MonoBehaviour
                 case (GameData.WeaponType.BLUNDERBUSS):
                     if (currentShotgunAmmo > 0)
                     {
-                        GameObject pellet1 = Instantiate(bulletPrefab, transform.position + transform.forward, Quaternion.Euler(0f, transform.rotation.eulerAngles.y - bulletSpread, 0f));
+                        GameObject pellet1 = Instantiate(bulletPrefab, transform.position + transform.forward, Quaternion.identity);
+                        pellet1.transform.forward = gameObject.transform.forward;
+                        pellet1.transform.rotation = Quaternion.Euler(0f, transform.rotation.eulerAngles.y - bulletSpread, 0f);
                         pellet1.GetComponent<Bullet>().shooter = gameObject;
 
-                        GameObject pellet2 = Instantiate(bulletPrefab, transform.position + transform.forward, Quaternion.Euler(0f, transform.rotation.eulerAngles.y - (bulletSpread / 5), 0f));
-                        pellet2.GetComponent<Bullet>().shooter = gameObject;
+                        GameObject pellet2 = Instantiate(bulletPrefab, transform.position + transform.forward, Quaternion.identity);
+                        pellet1.transform.forward = gameObject.transform.forward;
+                        pellet1.transform.rotation = Quaternion.Euler(0f, transform.rotation.eulerAngles.y - (bulletSpread / 5), 0f);
+                        pellet1.GetComponent<Bullet>().shooter = gameObject;
 
-                        GameObject pellet3 = Instantiate(bulletPrefab, transform.position + transform.forward, Quaternion.Euler(0f, transform.rotation.eulerAngles.y + (bulletSpread / 5), 0f));
-                        pellet3.GetComponent<Bullet>().shooter = gameObject;
+                        GameObject pellet3 = Instantiate(bulletPrefab, transform.position + transform.forward, Quaternion.identity);
+                        pellet1.transform.forward = gameObject.transform.forward;
+                        pellet1.transform.rotation = Quaternion.Euler(0f, transform.rotation.eulerAngles.y + (bulletSpread / 5), 0f);
+                        pellet1.GetComponent<Bullet>().shooter = gameObject;
 
-                        GameObject pellet4 = Instantiate(bulletPrefab, transform.position + transform.forward, Quaternion.Euler(0f, transform.rotation.eulerAngles.y + bulletSpread, 0f));
-                        pellet4.GetComponent<Bullet>().shooter = gameObject;
-
+                        GameObject pellet4 = Instantiate(bulletPrefab, transform.position + transform.forward, Quaternion.identity);
+                        pellet1.transform.forward = gameObject.transform.forward;
+                        pellet1.transform.rotation = Quaternion.Euler(0f, transform.rotation.eulerAngles.y + bulletSpread, 0f);
+                        pellet1.GetComponent<Bullet>().shooter = gameObject;
 
                         currentShotgunAmmo--;
                         StartCoroutine(Cooldown(rangedCooldown));
@@ -104,7 +111,7 @@ public class UseWeapon : MonoBehaviour
 
             }
 
-            weaponUIScript.UpdateUI(GameData.WeaponEquipped);
+            weaponUIScript.UpdateUI(GameData.WeaponTypeEquipped);
             StartCoroutine(FreezePlayer());
         }
         else if (Input.GetKeyDown(KeyCode.R) && ((reservePistolAmmo > 0 && currentPistolAmmo != pistolMagSize) || (reserveShotgunAmmo > 0 && currentShotgunAmmo != shotgunMagSize)))
@@ -141,7 +148,7 @@ public class UseWeapon : MonoBehaviour
                 reserveShotgunAmmo -= bulletsToLoad;
                 break;
         }
-        weaponUIScript.UpdateUI(currentWeapon);
+        weaponUIScript.UpdateUIReload();
     }
 
     IEnumerator MeleeAttack(GameObject weaponObj)

@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 3492254865581020537}
   - component: {fileID: 3492254865581020541}
   - component: {fileID: 3492254865581020540}
-  - component: {fileID: 3492254865581020515}
   - component: {fileID: 3492254865581020514}
   - component: {fileID: 6150532149414520263}
   m_Layer: 3
@@ -104,20 +103,6 @@ MonoBehaviour:
   reservePistolAmmo: 8
   currentShotgunAmmo: 2
   reserveShotgunAmmo: 4
---- !u!114 &3492254865581020515
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3492254865581020535}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0786ab0c678137444823f0c624c8ca3b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthText: {fileID: 0}
-  healthPoints: 100
 --- !u!114 &3492254865581020514
 MonoBehaviour:
   m_ObjectHideFlags: 0

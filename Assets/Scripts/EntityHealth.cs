@@ -2,11 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using TMPro;
 
 public class EntityHealth : MonoBehaviour
 {
-    public TextMeshProUGUI healthText;
+    public Slider healthSlider;
+
+    public TextMeshProUGUI maxHealthText;
+    public TextMeshProUGUI currentHealthText;
 
     [SerializeField]
     private int healthPoints;
@@ -14,27 +18,41 @@ public class EntityHealth : MonoBehaviour
     public void DamageEntity(int damage)
     {
         healthPoints -= damage;
+        SetHealth(healthPoints);
     }
 
     public int GetHealth()
     {
-        return healthPoints;
+        return (int)healthSlider.value;
     }
 
     public void AddHealth(int health)
     {
         healthPoints += health;
-        SetHealthText();
+        SetHealth(health);
     }
 
-    public void SetHealthText()
+    public void SetMaxHealth(int health)
     {
-        healthText.text = "Health: " + GetHealth();
+        healthSlider.maxValue = health;
+        healthSlider.value = health;
+
+        maxHealthText.text = health.ToString();
+    }
+
+
+    public void SetHealth(int health)
+    {
+        healthSlider.value = health;
+
+        currentHealthText.text = health.ToString();
     }
 
     public void KillEntity()
     {
-        GameData.WeaponEquipped = GameData.WeaponType.DAGGER;
+        GameData.EquippedMelee = GameData.WeaponType.DAGGER;
+        GameData.EquippedRanged = GameData.WeaponType.PISTOL;
+
         SceneManager.LoadScene(0);
     }
 }

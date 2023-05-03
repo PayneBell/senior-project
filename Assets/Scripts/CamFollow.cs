@@ -22,7 +22,7 @@ public class CamFollow : MonoBehaviour
         cameraPos = transform.position;    
     }
 
-    void Update()
+    void LateUpdate()
     {
         // Creates Vector3 goalPos for camera to move to and moves transform.position of Camera to goalPos
         if (target != null)

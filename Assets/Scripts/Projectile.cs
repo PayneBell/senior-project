@@ -30,10 +30,9 @@ public class Projectile : MonoBehaviour
     {
         if (attacker.tag == "Enemy" && other.gameObject.tag == "Player")
         {
-            EntityHealth healthScript = other.gameObject.GetComponent<EntityHealth>();
+            EntityHealth healthScript = GameObject.FindGameObjectWithTag("UI").GetComponentInChildren<EntityHealth>();
 
             healthScript.DamageEntity(1);
-            healthScript.SetHealthText();
 
             if (healthScript.GetHealth() == 0)
                 healthScript.KillEntity();
@@ -49,7 +48,6 @@ public class Projectile : MonoBehaviour
 
                 Destroy(other.gameObject);
                 GameData.LiveEnemies.Remove(other.gameObject);
-                winGameScript.enemiesRemainingText.text = "Enemies Remaining: " + GameData.LiveEnemies.Count;
                 StartCoroutine(RemoveFromList());
             }
 

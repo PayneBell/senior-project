@@ -33,7 +33,6 @@ public class Bullet : MonoBehaviour
 
         transform.position = new Vector3(transform.position.x, transform.position.y + 1.25f, transform.position.z);
 
-        //transform.forward = shooter.transform.forward;
         GetComponent<Rigidbody>().velocity = transform.forward * bulletSpeed;
     }
 
@@ -63,10 +62,9 @@ public class Bullet : MonoBehaviour
 
             else if (shooter.tag == "Enemy" && other.gameObject.tag == "Player")
             {
-                EntityHealth healthScript = other.gameObject.GetComponent<EntityHealth>();
+                EntityHealth healthScript = GameObject.FindGameObjectWithTag("UI").GetComponentInChildren<EntityHealth>();
 
                 healthScript.DamageEntity(1);
-                healthScript.SetHealthText();
 
                 if (healthScript.GetHealth() == 0)
                     healthScript.KillEntity();
@@ -94,14 +92,16 @@ public class Bullet : MonoBehaviour
         Destroy(gameObject);
     }
 
-    IEnumerator KillPlayerAndReload(GameObject playerObj)
+    IEnumerator RestartOnDeath(GameObject playerObj)
     {
         StopCoroutine(DestroyBullet());
         Destroy(playerObj);
 
         yield return new WaitForSeconds(1f);
 
-        GameData.WeaponEquipped = GameData.WeaponType.DAGGER;
+        GameData.EquippedMelee = GameData.WeaponType.DAGGER;
+        GameData.EquippedRanged = GameData.WeaponType.PISTOL;
+
         SceneManager.LoadScene(0);
     }
 }

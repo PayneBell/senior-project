@@ -27,7 +27,7 @@ public class Tides : MonoBehaviour
     IEnumerator MoveTide()
     {
         if (transform.position.y < maxTideHeight && tideUp)
-            transform.position = Vector3.MoveTowards(transform.position, new Vector3(transform.position.x, transform.position.y + 0.001f, transform.position.z), Time.fixedDeltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, new Vector3(transform.position.x, transform.position.y + 0.002f, transform.position.z), Time.fixedDeltaTime);
         else
         {
             tideUp = false;

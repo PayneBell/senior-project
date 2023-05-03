@@ -45,7 +45,7 @@ public class UpgradeWeapon : MonoBehaviour
 
                     playerInventory.WeaponLevelUp(GameData.WeaponEquipped);
 
-                    weaponSwitch.UpdateUI(GameData.WeaponEquipped);
+                    weaponSwitch.UpdateUI(GameData.WeaponTypeEquipped);
                 }
                 else
                 {

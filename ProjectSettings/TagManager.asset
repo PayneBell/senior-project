@@ -12,6 +12,7 @@ TagManager:
   - Chest
   - GameMgr
   - Anvil
+  - UI
   layers:
   - Default
   - TransparentFX
