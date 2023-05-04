@@ -11,6 +11,7 @@ public class SwitchWeapon : MonoBehaviour
     public TextMeshProUGUI weaponText;
     public TextMeshProUGUI levelText;
     public TextMeshProUGUI waveCounterText;
+    public TextMeshProUGUI rumCounterText;
 
     public RectTransform meleeSlot;
     public RectTransform rangedSlot;
@@ -31,11 +32,11 @@ public class SwitchWeapon : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1) && GameData.WeaponTypeEquipped == GameData.SlotType.RANGED)
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             SwitchSlot(GameData.SlotType.MELEE, GameData.EquippedMelee, rangedSlot, meleeSlot);
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha2) && GameData.WeaponTypeEquipped == GameData.SlotType.MELEE)
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             SwitchSlot(GameData.SlotType.RANGED, GameData.EquippedRanged, rangedSlot, meleeSlot);
         }
@@ -117,5 +118,10 @@ public class SwitchWeapon : MonoBehaviour
     public void UpdateUIWave()
     {
         waveCounterText.text = GameData.CurrentWave.ToString();
+    }
+
+    public void UpdateUIRum()
+    {
+        rumCounterText.text = GameData.HealthPots.ToString();
     }
 }

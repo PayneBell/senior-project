@@ -4,19 +4,9 @@ using UnityEngine;
 
 public class EnemyHealthBar : MonoBehaviour
 {
-    public Transform cam;
-
-    void Start()
+    void Update()
     {
-        cam = Camera.main.transform;
-
-        GetComponent<Canvas>().worldCamera = Camera.main;
+        transform.LookAt(Camera.main.transform);
     }
 
-    void LateUpdate()
-    {
-        Vector3 wantedPos = Camera.main.ScreenToWorldPoint(cam.position);
-
-        transform.position = wantedPos;
-    }
 }

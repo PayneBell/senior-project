@@ -23,7 +23,7 @@ public class EntityHealth : MonoBehaviour
 
     public int GetHealth()
     {
-        return (int)healthSlider.value;
+        return (int)healthPoints;
     }
 
     public void AddHealth(int health)
@@ -40,6 +40,11 @@ public class EntityHealth : MonoBehaviour
         maxHealthText.text = health.ToString();
     }
 
+    public int GetMaxHealth()
+    {
+        return (int)healthSlider.maxValue;
+    }
+
 
     public void SetHealth(int health)
     {
@@ -50,9 +55,13 @@ public class EntityHealth : MonoBehaviour
 
     public void KillEntity()
     {
+        GameData.WeaponEquipped = GameData.WeaponType.NONE;
         GameData.EquippedMelee = GameData.WeaponType.NONE;
         GameData.EquippedRanged = GameData.WeaponType.NONE;
 
-        SceneManager.LoadScene(0);
+        GameData.HealthPots = 3;
+        GameData.CurrentWave = 1;
+
+        SceneManager.LoadScene(1);
     }
 }

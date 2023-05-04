@@ -9,8 +9,6 @@ public class TreeThrough : MonoBehaviour
     Ray ray;
     RaycastHit hit;
 
-    MeshRenderer treeRenderer;
-
     GameObject currentTree;
 
     int rayLayerMask;

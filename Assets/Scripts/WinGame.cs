@@ -6,7 +6,6 @@ using TMPro;
 public class WinGame : MonoBehaviour
 {
     public GameObject winText;
-    public TextMeshProUGUI enemiesRemainingText;
 
     void Start()
     {
@@ -19,7 +18,7 @@ public class WinGame : MonoBehaviour
 
         GameData.LiveEnemies.RemoveAll(item => item == null);
 
-        if (GameData.LiveEnemies.Count == 0)
+        if (GameData.CurrentWave == 3)
         {
             Time.timeScale = 0;
             winText.SetActive(true);

@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 3492254865581020540}
   - component: {fileID: 3492254865581020514}
   - component: {fileID: 6150532149414520263}
+  - component: {fileID: 8898563098170292051}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -79,7 +80,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 840b9d8949cca524f9f3248d012f118d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ammoTextBox: {fileID: 0}
   weaponText: {fileID: 0}
+  levelText: {fileID: 0}
+  waveCounterText: {fileID: 0}
+  rumCounterText: {fileID: 0}
+  meleeSlot: {fileID: 0}
+  rangedSlot: {fileID: 0}
 --- !u!114 &3492254865581020540
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -137,6 +144,18 @@ CapsuleCollider:
   m_Height: 3
   m_Direction: 1
   m_Center: {x: 0, y: 1.47, z: 0}
+--- !u!114 &8898563098170292051
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3492254865581020535}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad0c9b82a67e5d647bbd7fe7cadae4c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3492254865408025940
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -160,6 +179,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -180
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: b62544db5be076e468f6a71fddd08cbb, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9307fadd7e8c34e4ba706ca66bd8f3b1, type: 2}
+    - target: {fileID: -7511558181221131132, guid: b62544db5be076e468f6a71fddd08cbb, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 6382658e3f2e0f04ba2c28d3b74163dd, type: 2}
+    - target: {fileID: -7511558181221131132, guid: b62544db5be076e468f6a71fddd08cbb, type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9eab77455de54194dada6043d9aebc91, type: 2}
+    - target: {fileID: -7511558181221131132, guid: b62544db5be076e468f6a71fddd08cbb, type: 3}
+      propertyPath: m_Materials.Array.data[3]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9307fadd7e8c34e4ba706ca66bd8f3b1, type: 2}
+    - target: {fileID: -7511558181221131132, guid: b62544db5be076e468f6a71fddd08cbb, type: 3}
+      propertyPath: m_Materials.Array.data[4]
+      value: 
+      objectReference: {fileID: 2100000, guid: 14f4848833846b1419ff6f4437dad980, type: 2}
     - target: {fileID: 919132149155446097, guid: b62544db5be076e468f6a71fddd08cbb, type: 3}
       propertyPath: m_Name
       value: player

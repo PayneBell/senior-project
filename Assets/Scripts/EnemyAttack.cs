@@ -32,9 +32,14 @@ public class EnemyAttack : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
 
+
+        GameData.WeaponEquipped = GameData.WeaponType.NONE;
         GameData.EquippedMelee = GameData.WeaponType.NONE;
         GameData.EquippedRanged = GameData.WeaponType.NONE;
 
-        SceneManager.LoadScene(0);
+        GameData.HealthPots = 3;
+        GameData.CurrentWave = 1;
+
+        SceneManager.LoadScene(1);
     }
 }

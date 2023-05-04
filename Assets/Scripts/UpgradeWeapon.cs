@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class UpgradeWeapon : MonoBehaviour
 {
     public float interactionRadius;
+
+    public GameObject insufficientText;
 
     private MouseHighlight mouseRayScript;
 
@@ -36,7 +39,7 @@ public class UpgradeWeapon : MonoBehaviour
 
         if (Physics.Raycast(mouseRayScript.cameraRay, out mouseRayScript.cameraRayHit, Mathf.Infinity, 1 << 8))
         {
-            if (Input.GetKeyDown(KeyCode.Mouse1) && interactable && mouseRayScript.cameraRayHit.collider.tag == "Anvil")
+            if (Input.GetKeyDown(KeyCode.Mouse1) && interactable && mouseRayScript.cameraRayHit.collider.tag == "Anvil" && GameData.WeaponEquipped != GameData.WeaponType.NONE)
             {
                 if (GameData.CurrentPoints >= playerInventory.GetNextUpgradeCost())
                 {
@@ -49,10 +52,22 @@ public class UpgradeWeapon : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log(string.Format("Insufficient points for upgrade, points required: {0}", playerInventory.GetNextUpgradeCost()));
+                    insufficientText.SetActive(true);
+                    insufficientText.GetComponent<TextMeshProUGUI>().text = string.Format("Insufficient points for upgrade points required: {0}", playerInventory.GetNextUpgradeCost());
+                    StartCoroutine(RemoveInsufficientText(insufficientText));
+                    //Debug.Log(string.Format("Insufficient points for upgrade, points required: {0}", playerInventory.GetNextUpgradeCost()));
                 }
 
             }
         }
+    }
+
+    IEnumerator RemoveInsufficientText(GameObject text)
+    {
+        yield return new WaitForSeconds(3f);
+
+        text.SetActive(false);
+
+
     }
 }

@@ -140,7 +140,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 5828580171192296933}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cee53ae8fafcdbb41aaf481b81fe5bbd, type: 3}
+  m_Script: {fileID: 11500000, guid: 40e3ed48634fd8840b59d1bda527ee6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ammoBoxPrefab: {fileID: 3675928700689399467, guid: 9bab43d5dbdcfa047b049839f8f91278, type: 3}

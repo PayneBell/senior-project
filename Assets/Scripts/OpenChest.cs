@@ -28,9 +28,6 @@ public class OpenChest : MonoBehaviour
     public GameObject pistolIcon;
     public GameObject shotgunIcon;
 
-    public GameObject weaponLabel;
-    public GameObject weaponLevel;
-
     public bool opening = false;
 
     void Start()

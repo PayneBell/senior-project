@@ -53,6 +53,12 @@ public class EnemyFollow : MonoBehaviour
             }
         }
 
+        if (following)
+        {
+            rb.velocity = transform.forward * enemySpeed;
+            transform.LookAt(player.transform);
+        }
+
     }
 
     void StopFollowing()

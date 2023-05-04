@@ -21,7 +21,7 @@ public class WaveManager : MonoBehaviour
     {
         foreach (GameObject spawner in GameData.LiveSpawners)
         {
-            if (spawner.GetComponent<Spawner>().liveEnemies == 0)
+            if (spawner && spawner.GetComponent<Spawner>().liveEnemies == 0)
             {
                 MeshRenderer spawnRenderer = spawner.GetComponentInChildren<MeshRenderer>();
 
@@ -72,6 +72,7 @@ public class WaveManager : MonoBehaviour
     {
         spawner.GetComponent<Spawner>().enabled = true;
 
+        spawner.GetComponent<Spawner>().liveEnemies = 10;
         spawner.GetComponent<Spawner>().enemiesSpawned = 0;
 
         StartCoroutine(GracePeriod(spawner));

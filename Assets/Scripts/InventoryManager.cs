@@ -16,15 +16,10 @@ public class InventoryManager : MonoBehaviour
 
     void Start()
     {
-        daggerDmg = (int)Mathf.Pow(daggerLevel, 2);
-        swordDmg = (int)Mathf.Pow(swordLevel, 2);
-        pistolDmg = (int)Mathf.Pow(pistolLevel, 2);
-        shotgunDmg = (int)Mathf.Pow(shotgunLevel, 2);
-    }
-
-    void SetWeaponDamage(int weaponDamage, int weaponLevel)
-    {
-        weaponDamage = (int)Mathf.Pow(weaponLevel, 2);
+        daggerDmg = 1;
+        swordDmg = 2;
+        pistolDmg = 1;
+        shotgunDmg = 1;
     }
 
     public int GetWeaponDamage()
@@ -52,19 +47,19 @@ public class InventoryManager : MonoBehaviour
     {
         if (GameData.WeaponEquipped == GameData.WeaponType.DAGGER)
         {
-            return (daggerLevel + 1) * 2;
+            return daggerLevel * 20;
         }
         else if (GameData.WeaponEquipped == GameData.WeaponType.CUTLASS)
         {
-            return (swordLevel + 1) * 2;
+            return swordLevel * 20;
         }
         else if (GameData.WeaponEquipped == GameData.WeaponType.PISTOL)
         {
-            return (pistolLevel + 1) * 2;
+            return pistolLevel * 20;
         }
         else if (GameData.WeaponEquipped == GameData.WeaponType.BLUNDERBUSS)
         {
-            return (shotgunLevel + 1) * 2;
+            return shotgunLevel * 20;
         }
         return -1;
     }
@@ -80,7 +75,7 @@ public class InventoryManager : MonoBehaviour
                 break;
             case (GameData.WeaponType.CUTLASS):
                 swordLevel++;
-                swordDmg = (int)Mathf.Pow(swordLevel, 2);
+                swordDmg = (int)Mathf.Pow(swordLevel, 3);
                 break;
             case (GameData.WeaponType.PISTOL):
                 pistolLevel++;

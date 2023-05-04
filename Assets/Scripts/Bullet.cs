@@ -13,18 +13,12 @@ public class Bullet : MonoBehaviour
     [HideInInspector]
     public GameObject shooter;
 
-    GameObject mouseHighlight;
-    WinGame winGameScript;
-    PointSystem pointSystem;
     InventoryManager playerInventory;
 
     void Start()
     {
         StartCoroutine(DestroyBullet());
 
-        mouseHighlight = GameObject.FindGameObjectWithTag("MouseHighlight");
-        winGameScript = GameObject.FindGameObjectWithTag("GameMgr").GetComponent<WinGame>();
-        pointSystem = GameObject.FindGameObjectWithTag("GameMgr").GetComponent<PointSystem>();
         playerInventory = GameObject.FindGameObjectWithTag("Player").GetComponent<InventoryManager>();
 
         bulletDamage = playerInventory.GetWeaponDamage();
@@ -42,11 +36,11 @@ public class Bullet : MonoBehaviour
             {
                 // If player shoots at an enemy, it automatically goes aggressive towards the player
                 other.gameObject.transform.LookAt(shooter.transform);
-                other.gameObject.GetComponent<Rigidbody>().velocity = other.transform.forward * other.GetComponent<EnemyFollow>().enemySpeed;
+                other.gameObject.GetComponent<EnemyFollow>().enemySight = 50;
 
-                other.gameObject.GetComponent<EnemyHealth>().DealDamage(bulletDamage);
+                other.gameObject.GetComponentInChildren<EnemyHealth>().DealDamage(bulletDamage);
 
-                if (other.gameObject.GetComponent<EnemyHealth>().GetHealth() <= 0)
+                if (other.gameObject.GetComponentInChildren<EnemyHealth>().GetHealth() <= 0)
                 {
                     Destroy(other.gameObject);
                     GameData.LiveEnemies.Remove(other.gameObject);
@@ -85,18 +79,5 @@ public class Bullet : MonoBehaviour
 
         GameData.LiveEnemies.RemoveAll(x => x == null);
         Destroy(gameObject);
-    }
-
-    IEnumerator RestartOnDeath(GameObject playerObj)
-    {
-        StopCoroutine(DestroyBullet());
-        Destroy(playerObj);
-
-        yield return new WaitForSeconds(1f);
-
-        GameData.EquippedMelee = GameData.WeaponType.NONE;
-        GameData.EquippedRanged = GameData.WeaponType.NONE;
-
-        SceneManager.LoadScene(0);
     }
 }

@@ -6,9 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/IslandTest.unity
-    guid: 1392e4573cd729840a550ea99656e0e4
-  - enabled: 1
     path: Assets/Scenes/Main Menu.unity
     guid: 6dbde67bab3fd1540bbf3a5ddca90478
+  - enabled: 1
+    path: Assets/Scenes/IslandTest.unity
+    guid: 1392e4573cd729840a550ea99656e0e4
   m_configObjects: {}

@@ -14,7 +14,8 @@ public class SwitchPrompt : MonoBehaviour
     {
         if (chest.GetComponent<OpenChest>().itemContained == GameData.WeaponType.DAGGER || chest.GetComponent<OpenChest>().itemContained == GameData.WeaponType.CUTLASS)
             promptText.text = string.Format("You found a {0}, but you already have a melee weapon equipped, would you like to switch? This will permanently remove the old weapon from your inventory.", chest.GetComponent<OpenChest>().itemContained.ToString().ToLower());
-        else if (chest.GetComponent<OpenChest>().itemContained == GameData.WeaponType.PISTOL || chest.GetComponent<OpenChest>().itemContained == GameData.WeaponType.BLUNDERBUSS)
+        
+        if (chest.GetComponent<OpenChest>().itemContained == GameData.WeaponType.PISTOL || chest.GetComponent<OpenChest>().itemContained == GameData.WeaponType.BLUNDERBUSS)
             promptText.text = string.Format("You found a {0}, but you already have a ranged weapon equipped, would you like to switch? This will permanently remove the old weapon from your inventory.", chest.GetComponent<OpenChest>().itemContained.ToString().ToLower());
 
         
@@ -34,7 +35,6 @@ public class SwitchPrompt : MonoBehaviour
 
     public void No()
     {
-
         chest.SetActive(true);
         chest.SendMessage("No");
     }

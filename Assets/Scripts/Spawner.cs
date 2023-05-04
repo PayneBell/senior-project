@@ -81,10 +81,7 @@ public class Spawner : MonoBehaviour
 
             enemyObj.transform.LookAt(GameObject.FindGameObjectWithTag("Player").transform);
 
-            if (enemyPrefab.tag == "Melee")
-                enemyObj.GetComponent<EnemyHealth>().SetHealth(GameData.BaseMeleeEnemyHealth * GameData.CurrentWave);
-            else if (enemyPrefab.tag == "Ranged")
-                enemyObj.GetComponent<EnemyHealth>().SetHealth(GameData.BaseRangedEnemyHealth * GameData.CurrentWave);
+            enemyObj.GetComponentInChildren<EnemyHealth>().SetMaxHealth();
 
             enemyObj.name = "Enemy" + enemiesSpawned;
             enemyObj.GetComponentInChildren<MeshRenderer>().material.SetColor("_Color", Color.red);

@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Projectile : MonoBehaviour
+public class Melee : MonoBehaviour
 {
     private GameObject attacker;
-
-    public GameObject ammoBoxPrefab;
 
     private int meleeDamage;
 
@@ -41,9 +39,11 @@ public class Projectile : MonoBehaviour
         }
         else if (attacker.tag == "Player" && other.gameObject.tag == "Enemy")
         {
-            other.gameObject.GetComponent<EnemyHealth>().DealDamage(meleeDamage);
+            Debug.Log("enemy hit");
 
-            if (other.gameObject.GetComponent<EnemyHealth>().GetHealth() <= 0)
+            other.gameObject.GetComponentInChildren<EnemyHealth>().DealDamage(meleeDamage);
+
+            if (other.gameObject.GetComponentInChildren<EnemyHealth>().GetHealth() <= 0)
             {
                 Destroy(other.gameObject);
                 GameData.LiveEnemies.Remove(other.gameObject);
