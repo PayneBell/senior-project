@@ -11,14 +11,17 @@ public class Spawner : MonoBehaviour
     public float minSpawnRadius;
     public float maxSpawnRadius;
     public int spawnLimit;
+    public int liveEnemies;
+    public int enemiesSpawned;
     public float spawnDelay;
     public GameObject enemyPrefab;
+    public List<GameObject> enemies = new List<GameObject>();
 
     /*
         Private variables
     */
 
-    private int enemiesSpawned;
+
 
 
     /*
@@ -27,10 +30,13 @@ public class Spawner : MonoBehaviour
 
     GameObject player;
 
-    bool spawning;
+    public bool spawning;
 
     void Start()
     {
+        GameData.LiveSpawners.Add(gameObject);
+
+        liveEnemies = spawnLimit;
         enemiesSpawned = 0;
 
         player = GameObject.FindGameObjectWithTag("Player");
@@ -71,7 +77,15 @@ public class Spawner : MonoBehaviour
             Vector3 spawnPos = GenerateSpawnPosition();
 
             GameObject enemyObj = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
-            //enemyObj.transform.LookAt(GameObject.FindGameObjectWithTag("Player").transform);
+            enemyObj.GetComponent<SpawnerTracker>().spawner = gameObject;
+
+            enemyObj.transform.LookAt(GameObject.FindGameObjectWithTag("Player").transform);
+
+            if (enemyPrefab.tag == "Melee")
+                enemyObj.GetComponent<EnemyHealth>().SetHealth(GameData.BaseMeleeEnemyHealth * GameData.CurrentWave);
+            else if (enemyPrefab.tag == "Ranged")
+                enemyObj.GetComponent<EnemyHealth>().SetHealth(GameData.BaseRangedEnemyHealth * GameData.CurrentWave);
+
             enemyObj.name = "Enemy" + enemiesSpawned;
             enemyObj.GetComponentInChildren<MeshRenderer>().material.SetColor("_Color", Color.red);
 

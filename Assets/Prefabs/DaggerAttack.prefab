@@ -143,3 +143,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cee53ae8fafcdbb41aaf481b81fe5bbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ammoBoxPrefab: {fileID: 3675928700689399467, guid: 9bab43d5dbdcfa047b049839f8f91278, type: 3}

@@ -50,8 +50,8 @@ public class EntityHealth : MonoBehaviour
 
     public void KillEntity()
     {
-        GameData.EquippedMelee = GameData.WeaponType.DAGGER;
-        GameData.EquippedRanged = GameData.WeaponType.PISTOL;
+        GameData.EquippedMelee = GameData.WeaponType.NONE;
+        GameData.EquippedRanged = GameData.WeaponType.NONE;
 
         SceneManager.LoadScene(0);
     }

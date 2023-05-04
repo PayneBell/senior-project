@@ -40,13 +40,7 @@ public class MouseHighlight : MonoBehaviour
         cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
 
         if (Physics.Raycast(cameraRay, out cameraRayHit, Mathf.Infinity, rayLayerMask))
-        {
             highlightObj.transform.position = new Vector3(cameraRayHit.point.x, cameraRayHit.point.y + 0.1f, cameraRayHit.point.z);
-            
-            if (Input.GetKeyDown(KeyCode.Mouse0) && player)
-            {
-                player.transform.LookAt(cameraRayHit.point);
-            }
-        }
+
     }
 }

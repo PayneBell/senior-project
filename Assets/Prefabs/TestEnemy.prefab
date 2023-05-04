@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 7188506134401379559}
   - component: {fileID: 6542393137851986762}
   - component: {fileID: -8406731975291207293}
+  - component: {fileID: -4636151781979832599}
   m_Layer: 2
   m_Name: TestEnemy
   m_TagString: Enemy
@@ -124,7 +125,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6cb420cbf7fad44fbb34a5f993ba2d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyHealth: 10
+  ammoBoxPrefab: {fileID: 3675928700689399467, guid: 9bab43d5dbdcfa047b049839f8f91278, type: 3}
+--- !u!114 &-4636151781979832599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 229291675438277075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fd6ddc9ffaec7245a18edcf6c7f7c24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawner: {fileID: 0}
 --- !u!1 &961125561225043547
 GameObject:
   m_ObjectHideFlags: 0

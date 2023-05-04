@@ -10,8 +10,6 @@ public class Bullet : MonoBehaviour
 
     private int bulletDamage;
 
-    public GameObject ammoBoxPrefab;
-
     [HideInInspector]
     public GameObject shooter;
 
@@ -42,22 +40,19 @@ public class Bullet : MonoBehaviour
         {
             if (shooter.tag == "Player" && other.gameObject.tag == "Enemy")
             {
+                // If player shoots at an enemy, it automatically goes aggressive towards the player
+                other.gameObject.transform.LookAt(shooter.transform);
+                other.gameObject.GetComponent<Rigidbody>().velocity = other.transform.forward * other.GetComponent<EnemyFollow>().enemySpeed;
+
                 other.gameObject.GetComponent<EnemyHealth>().DealDamage(bulletDamage);
 
                 if (other.gameObject.GetComponent<EnemyHealth>().GetHealth() <= 0)
                 {
-                    GameData.CurrentPoints++;
-                    pointSystem.UpdatePoints();
-
                     Destroy(other.gameObject);
                     GameData.LiveEnemies.Remove(other.gameObject);
-                    winGameScript.enemiesRemainingText.text = "Enemies Remaining: " + GameData.LiveEnemies.Count;
+
                     StartCoroutine(RemoveFromList());
                 }
-
-                bool dropAmmo = Random.Range(0, 100) < GameData.ammoDropChance;
-                if (dropAmmo)
-                    Instantiate(ammoBoxPrefab, other.gameObject.transform.position, other.gameObject.transform.rotation);
             }
 
             else if (shooter.tag == "Enemy" && other.gameObject.tag == "Player")
@@ -99,8 +94,8 @@ public class Bullet : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
 
-        GameData.EquippedMelee = GameData.WeaponType.DAGGER;
-        GameData.EquippedRanged = GameData.WeaponType.PISTOL;
+        GameData.EquippedMelee = GameData.WeaponType.NONE;
+        GameData.EquippedRanged = GameData.WeaponType.NONE;
 
         SceneManager.LoadScene(0);
     }

@@ -5,15 +5,20 @@ using UnityEngine;
 public class EnemyHealth : MonoBehaviour
 {
     private int maxHealth;
-    public int enemyHealth;
 
-    MeshRenderer enemyMesh;
+    private int enemyHealth;
+
+    PointSystem pointSystem;
+
+    bool pointsGiven = false;
+
+    public GameObject ammoBoxPrefab;
 
     void Start()
     {
-        maxHealth = enemyHealth;
+        pointSystem = GameObject.FindGameObjectWithTag("GameMgr").GetComponent<PointSystem>();
 
-        enemyMesh = GetComponentInChildren<MeshRenderer>();
+        maxHealth = enemyHealth;
     }
 
     public void DamageEntity(int damage)
@@ -26,9 +31,35 @@ public class EnemyHealth : MonoBehaviour
         return enemyHealth;
     }
 
+    public void SetHealth(int health)
+    {
+        enemyHealth = health;
+    }
+
     public void DealDamage(int dmg)
     {
         enemyHealth -= dmg;
+
+
+        if (enemyHealth <= 0 && !pointsGiven)
+        {
+            GiveEnemyDrops();
+        }
+    }
+
+    void GiveEnemyDrops()
+    {
+        GameData.CurrentPoints++;
+        pointSystem.UpdatePoints();
+
+        GetComponent<SpawnerTracker>().spawner.GetComponent<Spawner>().liveEnemies--;
+
+        bool dropAmmo = Random.Range(0, 100) < GameData.ammoDropChance;
+        if (dropAmmo)
+            Instantiate(ammoBoxPrefab, transform.position, gameObject.transform.rotation);
+
+        pointsGiven = true;
+
     }
 
     public void KillEnemy()

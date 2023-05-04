@@ -10,6 +10,7 @@ public class SwitchWeapon : MonoBehaviour
 
     public TextMeshProUGUI weaponText;
     public TextMeshProUGUI levelText;
+    public TextMeshProUGUI waveCounterText;
 
     public RectTransform meleeSlot;
     public RectTransform rangedSlot;
@@ -32,28 +33,42 @@ public class SwitchWeapon : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha1) && GameData.WeaponTypeEquipped == GameData.SlotType.RANGED)
         {
-            GameData.WeaponTypeEquipped = GameData.SlotType.MELEE;
-            GameData.WeaponEquipped = GameData.EquippedMelee;
-
-            rangedSlot.localScale = new Vector3(5f, 5f, 1f);
-            meleeSlot.localScale = new Vector3(6f, 6f, 1f);
-
-            UpdateUI(GameData.WeaponTypeEquipped);
+            SwitchSlot(GameData.SlotType.MELEE, GameData.EquippedMelee, rangedSlot, meleeSlot);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2) && GameData.WeaponTypeEquipped == GameData.SlotType.MELEE)
         {
-            GameData.WeaponTypeEquipped = GameData.SlotType.RANGED;
-            GameData.WeaponEquipped = GameData.EquippedRanged;
+            SwitchSlot(GameData.SlotType.RANGED, GameData.EquippedRanged, rangedSlot, meleeSlot);
+        }
+    }
 
+    public void SwitchSlot(GameData.SlotType slot, GameData.WeaponType weapon, RectTransform rangedSlot, RectTransform meleeSlot)
+    {
+        GameData.WeaponTypeEquipped = slot;
+        GameData.WeaponEquipped = weapon;
+
+        if (slot == GameData.SlotType.MELEE)
+        {
+            rangedSlot.localScale = new Vector3(5f, 5f, 1f);
+            meleeSlot.localScale = new Vector3(6f, 6f, 1f);
+        }
+        else
+        {
             meleeSlot.localScale = new Vector3(5f, 5f, 1f);
             rangedSlot.localScale = new Vector3(6f, 6f, 1f);
-
-            UpdateUI(GameData.WeaponTypeEquipped);
         }
+
+        UpdateUI(slot);
     }
 
     public void UpdateUI(GameData.SlotType newSlot)
     {
+        if (!weaponText.gameObject.activeSelf)
+        {
+            weaponText.gameObject.SetActive(true);
+            if (!levelText.gameObject.activeSelf)
+                levelText.gameObject.SetActive(true);
+        }
+
         if (newSlot == GameData.SlotType.MELEE)
         {
             ammoTextBox.SetActive(false);
@@ -72,7 +87,6 @@ public class SwitchWeapon : MonoBehaviour
         }
         else if (newSlot == GameData.SlotType.RANGED)
         {
-
             if (GameData.EquippedRanged == GameData.WeaponType.PISTOL)
             {
                 weaponText.text = "PISTOL";
@@ -98,5 +112,10 @@ public class SwitchWeapon : MonoBehaviour
             ammoTextBox.GetComponentInChildren<TextMeshProUGUI>().text = string.Format("{0} / {1}", weaponScript.currentPistolAmmo, weaponScript.reservePistolAmmo);
         else if (GameData.EquippedRanged == GameData.WeaponType.BLUNDERBUSS)
             ammoTextBox.GetComponentInChildren<TextMeshProUGUI>().text = string.Format("{0} / {1}", weaponScript.currentShotgunAmmo, weaponScript.reserveShotgunAmmo);
+    }
+
+    public void UpdateUIWave()
+    {
+        waveCounterText.text = GameData.CurrentWave.ToString();
     }
 }

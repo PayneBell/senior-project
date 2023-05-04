@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 830509694424669651}
   - component: {fileID: 1649108212943496760}
   - component: {fileID: 63715786555364336}
+  - component: {fileID: -440299250717246853}
   m_Layer: 2
   m_Name: PistolEnemy
   m_TagString: Enemy
@@ -123,7 +124,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6cb420cbf7fad44fbb34a5f993ba2d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyHealth: 10
+  ammoBoxPrefab: {fileID: 3675928700689399467, guid: 9bab43d5dbdcfa047b049839f8f91278, type: 3}
+--- !u!114 &-440299250717246853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7039536033338955235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fd6ddc9ffaec7245a18edcf6c7f7c24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawner: {fileID: 0}
 --- !u!1001 &1426546199461798442
 PrefabInstance:
   m_ObjectHideFlags: 0

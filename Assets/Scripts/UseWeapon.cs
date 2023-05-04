@@ -29,7 +29,10 @@ public class UseWeapon : MonoBehaviour
 
     SwitchWeapon weaponUIScript;
     PlayerMove movementScript;
+    MouseHighlight mouseHLScript;
     Rigidbody rb;
+
+
 
     void Start()
     {
@@ -41,6 +44,7 @@ public class UseWeapon : MonoBehaviour
 
         weaponUIScript = GetComponent<SwitchWeapon>();
         movementScript = GetComponent<PlayerMove>();
+        mouseHLScript = Camera.main.GetComponent<MouseHighlight>();
 
         rb = GetComponent<Rigidbody>();
     }
@@ -49,6 +53,8 @@ public class UseWeapon : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Mouse0) && attackAvailable)
         {
+            transform.LookAt(GameObject.FindGameObjectWithTag("MouseHighlight").transform);
+
             switch (GameData.WeaponEquipped)
             {
                 case (GameData.WeaponType.DAGGER):
@@ -83,25 +89,17 @@ public class UseWeapon : MonoBehaviour
                 case (GameData.WeaponType.BLUNDERBUSS):
                     if (currentShotgunAmmo > 0)
                     {
-                        GameObject pellet1 = Instantiate(bulletPrefab, transform.position + transform.forward, Quaternion.identity);
-                        pellet1.transform.forward = gameObject.transform.forward;
-                        pellet1.transform.rotation = Quaternion.Euler(0f, transform.rotation.eulerAngles.y - bulletSpread, 0f);
+                        GameObject pellet1 = Instantiate(bulletPrefab, transform.position + transform.forward, Quaternion.Euler(0f, transform.rotation.eulerAngles.y - bulletSpread, 0f));
                         pellet1.GetComponent<Bullet>().shooter = gameObject;
 
-                        GameObject pellet2 = Instantiate(bulletPrefab, transform.position + transform.forward, Quaternion.identity);
-                        pellet1.transform.forward = gameObject.transform.forward;
-                        pellet1.transform.rotation = Quaternion.Euler(0f, transform.rotation.eulerAngles.y - (bulletSpread / 5), 0f);
-                        pellet1.GetComponent<Bullet>().shooter = gameObject;
+                        GameObject pellet2 = Instantiate(bulletPrefab, transform.position + transform.forward, Quaternion.Euler(0f, transform.rotation.eulerAngles.y - (bulletSpread / 5), 0f));
+                        pellet2.GetComponent<Bullet>().shooter = gameObject;
 
-                        GameObject pellet3 = Instantiate(bulletPrefab, transform.position + transform.forward, Quaternion.identity);
-                        pellet1.transform.forward = gameObject.transform.forward;
-                        pellet1.transform.rotation = Quaternion.Euler(0f, transform.rotation.eulerAngles.y + (bulletSpread / 5), 0f);
-                        pellet1.GetComponent<Bullet>().shooter = gameObject;
+                        GameObject pellet3 = Instantiate(bulletPrefab, transform.position + transform.forward, Quaternion.Euler(0f, transform.rotation.eulerAngles.y + (bulletSpread / 5), 0f));
+                        pellet3.GetComponent<Bullet>().shooter = gameObject;
 
-                        GameObject pellet4 = Instantiate(bulletPrefab, transform.position + transform.forward, Quaternion.identity);
-                        pellet1.transform.forward = gameObject.transform.forward;
-                        pellet1.transform.rotation = Quaternion.Euler(0f, transform.rotation.eulerAngles.y + bulletSpread, 0f);
-                        pellet1.GetComponent<Bullet>().shooter = gameObject;
+                        GameObject pellet4 = Instantiate(bulletPrefab, transform.position + transform.forward, Quaternion.Euler(0f, transform.rotation.eulerAngles.y + bulletSpread, 0f));
+                        pellet4.GetComponent<Bullet>().shooter = gameObject;
 
                         currentShotgunAmmo--;
                         StartCoroutine(Cooldown(rangedCooldown));

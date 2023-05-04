@@ -7,6 +7,8 @@ public class Projectile : MonoBehaviour
 {
     private GameObject attacker;
 
+    public GameObject ammoBoxPrefab;
+
     private int meleeDamage;
 
     WinGame winGameScript;
@@ -43,9 +45,6 @@ public class Projectile : MonoBehaviour
 
             if (other.gameObject.GetComponent<EnemyHealth>().GetHealth() <= 0)
             {
-                GameData.CurrentPoints++;
-                pointSystem.UpdatePoints();
-
                 Destroy(other.gameObject);
                 GameData.LiveEnemies.Remove(other.gameObject);
                 StartCoroutine(RemoveFromList());
